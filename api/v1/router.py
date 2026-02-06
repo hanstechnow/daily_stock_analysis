@@ -11,10 +11,16 @@ API v1 路由聚合
 
 from fastapi import APIRouter
 
-from api.v1.endpoints import health, analysis, history, stocks
+from api.v1.endpoints import health, analysis, history, stocks, quant
 
 # 创建 v1 版本主路由
 router = APIRouter(prefix="/api/v1")
+
+router.include_router(
+    quant.router,
+    prefix="/quant",
+    tags=["Quantitative"]
+)
 
 router.include_router(
     analysis.router,
